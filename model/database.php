@@ -2,7 +2,7 @@
 // Database connection settings
 $dsn = 'mysql:host=localhost;dbname=plate_pal';
 $username = 'root';
-$password = 'WebDevDatabase';
+$password = 'WebDevDataBase';
 
 try {
     $db = new PDO($dsn, $username, $password);
