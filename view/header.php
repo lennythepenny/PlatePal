@@ -9,8 +9,7 @@
 <body>
     <header>
         <h1>Plate Pal</h1>
-        <nav>
-            <a href="index.php">Home</a> | 
-            <a href="account_view.php">My Account</a>
-        </nav>
+        <h2>Find your favorite recipe!<h2>
     </header>
+</body>
+</html>

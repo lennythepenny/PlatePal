@@ -1,5 +1,10 @@
 <?php
-// Home controller - manages the main page routing and general searches
-require_once('../model/recipe_db.php');
+// Start session management
+session_start();
+
+// Check if the user is logged in
+$isLoggedIn = isset($_SESSION['username']);
+
+// Pass the login status to the view and render it
 require_once('../view/index_view.php');
 ?>
