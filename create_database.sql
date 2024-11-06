@@ -1,3 +1,12 @@
+-- Drop existing tables if they exist
+DROP TABLE IF EXISTS user_saved_recipes;
+DROP TABLE IF EXISTS recipe_categories;
+DROP TABLE IF EXISTS recipe_ingredients;
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS ingredients;
+DROP TABLE IF EXISTS recipes;
+DROP TABLE IF EXISTS categories;
+
 -- Step 1: Categories Table
 CREATE TABLE categories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -8,14 +17,30 @@ CREATE TABLE categories (
 CREATE TABLE recipes (
     recipe_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    ingredients TEXT NOT NULL,
     instructions TEXT NOT NULL,
     cooking_time INT, -- in minutes
     servings INT,
-    nutrition_info JSON
+    nutrition_info JSON,
+    category_id INT,
+    FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
--- Step 3: Users Table
+-- Step 3: Ingredients Table
+CREATE TABLE ingredients (
+    ingredient_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE
+);
+
+-- Step 4: Recipe Ingredients Table - Linking Recipes to Ingredients
+CREATE TABLE recipe_ingredients (
+    recipe_id INT,
+    ingredient_id INT,
+    PRIMARY KEY (recipe_id, ingredient_id),
+    FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE,
+    FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id) ON DELETE CASCADE
+);
+
+-- Step 5: Users Table
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -23,7 +48,7 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL
 );
 
--- Step 4: Recipe Categories Table - Linking Recipes to Categories
+-- Step 6: Recipe Categories Table - Linking Recipes to Categories
 CREATE TABLE recipe_categories (
     recipe_category_id INT AUTO_INCREMENT PRIMARY KEY,
     recipe_id INT NOT NULL,
@@ -32,7 +57,7 @@ CREATE TABLE recipe_categories (
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
--- Step 5: User-Saved Recipes Table - Linking Users to Recipes
+-- Step 7: User-Saved Recipes Table - Linking Users to Saved Recipes
 CREATE TABLE user_saved_recipes (
     saved_recipe_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -53,11 +78,40 @@ INSERT INTO categories (name) VALUES
 ('Mediterranean');
 
 -- Insert sample recipes
-INSERT INTO recipes (title, ingredients, instructions, cooking_time, servings, nutrition_info) VALUES
--- Vegan Recipes
-('Vegan Avocado Toast', 'Avocado, Toast, Salt, Pepper, Lemon', 'Mash avocado, season, spread on toast', 5, 1, '{"calories": 200, "protein": 3, "carbs": 22}'),
-('Vegan Buddha Bowl', 'Quinoa, Chickpeas, Avocado, Veggies', 'Cook quinoa, assemble ingredients in a bowl', 15, 1, '{"calories": 400, "protein": 10, "carbs": 60}'),
-('Vegan Tofu Stir-fry', 'Tofu, Bell Peppers, Soy Sauce, Rice', 'Stir-fry tofu and veggies, serve with rice', 20, 2, '{"calories": 300, "protein": 15, "carbs": 40}');
+INSERT INTO recipes (title, instructions, cooking_time, servings, nutrition_info, category_id) VALUES
+('Vegan Avocado Toast', 'Mash avocado, season, spread on toast', 5, 1, '{"calories": 200, "protein": 3, "carbs": 22}', 1),
+('Vegan Buddha Bowl', 'Cook quinoa, assemble ingredients in a bowl', 15, 1, '{"calories": 400, "protein": 10, "carbs": 60}', 1),
+('Vegan Tofu Stir-fry', 'Stir-fry tofu and veggies, serve with rice', 20, 2, '{"calories": 300, "protein": 15, "carbs": 40}', 1);
+
+-- Insert sample ingredients
+INSERT INTO ingredients (name) VALUES
+('Avocado'),
+('Toast'),
+('Salt'),
+('Pepper'),
+('Lemon'),
+('Quinoa'),
+('Chickpeas'),
+('Tofu'),
+('Bell Peppers'),
+('Rice');
+
+-- Link recipes to ingredients
+INSERT INTO recipe_ingredients (recipe_id, ingredient_id) VALUES
+-- Vegan Avocado Toast
+(1, 1), -- Avocado
+(1, 2), -- Toast
+(1, 3), -- Salt
+(1, 4), -- Pepper
+(1, 5), -- Lemon
+-- Vegan Buddha Bowl
+(2, 6), -- Quinoa
+(2, 7), -- Chickpeas
+(2, 1), -- Avocado
+-- Vegan Tofu Stir-fry
+(3, 8), -- Tofu
+(3, 9), -- Bell Peppers
+(3, 10); -- Rice
 
 -- Link recipes to categories
 INSERT INTO recipe_categories (recipe_id, category_id) VALUES
