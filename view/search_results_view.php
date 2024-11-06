@@ -1,12 +1,17 @@
 <?php include('header.php'); ?>
 <main>
-    <h2>Search Results</h2>
+    <h2>Search Results for "<?php echo htmlspecialchars($term); ?>"</h2>
+    
     <?php if (!empty($results)): ?>
-        <?php foreach ($results as $recipe): ?>
-            <p><a href="../controller/recipe_controller.php?recipe_id=<?php echo $recipe['id']; ?>">
-                <?php echo htmlspecialchars($recipe['title']); ?>
-            </a></p>
-        <?php endforeach; ?>
+        <ul>
+            <?php foreach ($results as $recipe): ?>
+                <li>
+                    <a href="../controller/recipe_controller.php?recipe_id=<?php echo $recipe['recipe_id']; ?>">
+                        <?php echo htmlspecialchars($recipe['title']); ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
     <?php else: ?>
         <p>No recipes found for "<?php echo htmlspecialchars($term); ?>"</p>
     <?php endif; ?>

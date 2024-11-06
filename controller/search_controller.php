@@ -9,7 +9,7 @@ if (isset($_POST['search'])) {
     // Fetch search results from the model
     $results = searchRecipes($term);
     
-    // Pass results to the search results view
+    // Pass results and term to the search results view
     include('../view/search_results_view.php');
 } else {
     // Fallback if accessed without a search term

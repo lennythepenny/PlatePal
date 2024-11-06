@@ -18,7 +18,7 @@ CREATE TABLE recipes (
     recipe_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     instructions TEXT NOT NULL,
-    cooking_time INT, -- in minutes
+    cooking_time INT,
     servings INT,
     nutrition_info JSON,
     category_id INT,
@@ -38,7 +38,7 @@ CREATE TABLE recipe_ingredients (
     FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE,
     FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id) ON DELETE CASCADE
 );
--- Step 4: Users Table
+-- Step 5: Users Table
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -46,7 +46,7 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL
 );
 
--- Step 5: Recipe Categories Table - Linking Recipes to Categories
+-- Step 6: Recipe Categories Table - Linking Recipes to Categories
 CREATE TABLE recipe_categories (
     recipe_category_id INT AUTO_INCREMENT PRIMARY KEY,
     recipe_id INT NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE recipe_categories (
     FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE
 );
 
--- Step 6: User-Saved Recipes Table - Linking Users to Saved Recipes
+-- Step 7: User-Saved Recipes Table - Linking Users to Saved Recipes
 CREATE TABLE user_saved_recipes (
     saved_recipe_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
