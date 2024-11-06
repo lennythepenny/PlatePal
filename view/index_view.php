@@ -4,7 +4,6 @@
     <!-- Dynamic Navigation Based on Login Status -->
     <nav>
         <a href="../controller/index.php">Home</a> | <!-- Redirect to the home controller -->
-        
         <?php if (isset($isLoggedIn) && $isLoggedIn): ?>
             <!-- If the user is logged in, show the account page link -->
             <a href="../view/account_view.php">My Account</a> | 
