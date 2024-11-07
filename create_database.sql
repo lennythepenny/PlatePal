@@ -2,10 +2,11 @@
 DROP TABLE IF EXISTS user_saved_recipes;
 DROP TABLE IF EXISTS recipe_categories;
 DROP TABLE IF EXISTS recipe_ingredients;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS ingredients;
-DROP TABLE IF EXISTS recipes;
 DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS recipes;
+DROP TABLE IF EXISTS users;
+
 
 -- Step 1: Categories Table
 CREATE TABLE categories (
