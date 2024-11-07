@@ -1,15 +1,78 @@
+/* Colors used */
+:root{
+    --green: #6e994d;
+    --orange: #e17e06;
+    --yellow: #f2e074; 
+    --olive: #d0d59d;
+    --tan: #f7ecd0;
+}
 /* Basic styling for Plate Pal */
 body {
     font-family: Arial, sans-serif;
 }
 header, footer {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--tan);
     padding: 1em;
+    color: var(--green);
 }
+
+h3 {
+    color: var(--orange);
+}
+
 main {
     padding: 2em;
+    background-color: var(--tan);
 }
 form input, form button {
     margin: 0.5em 0;
+}
+
+nav {
+    background-color: var(--green);
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+nav a {
+    color: var(--yellow);
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: var(--orange);
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+input[type="text"], input[type="password"] {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid var(--olive);
+    border-radius: 5px 5px 5px 5px;
+    outline: none;
+    margin: 2px;
+}
+
+button[type="submit"] {
+    background-color: var(--orange);
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px 5px 5px 5px;
+    font-weight: bold;
+    margin: 2px;
+}
+
+button[type="submit"]:hover {
+    background-color: var(--green);
 }
