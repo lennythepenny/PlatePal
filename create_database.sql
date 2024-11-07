@@ -38,6 +38,14 @@ CREATE TABLE recipe_ingredients (
     FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE,
     FOREIGN KEY (ingredient_id) REFERENCES ingredients(ingredient_id) ON DELETE CASCADE
 );
+-- Create table for storing images associated with recipes
+CREATE TABLE images (
+    image_id INT AUTO_INCREMENT PRIMARY KEY,
+    recipe_id INT NOT NULL,
+    image_filename VARCHAR(255) NOT NULL,
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id)
+);
 -- Step 5: Users Table
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -172,6 +180,33 @@ INSERT INTO recipe_categories (recipe_id, category_id) VALUES
 (8, 6), -- Chinese category
 (9, 7), -- Mexican category
 (10, 8); -- Mediterranean category
+
+-- Insert image URLs for each recipe
+INSERT INTO images (recipe_id, image_filename) VALUES
+(1, 'https://i0.wp.com/earthblokes.com/wp-content/uploads/2021/02/vegan-avocado-toast-3.jpg?resize=800%2C1200&ssl=1'),
+(2, 'https://simplyceecee.co/wp-content/uploads/2018/07/veganbuddhabowl-2.jpg'),
+(3, 'https://rainbowplantlife.com/wp-content/uploads/2023/01/tofu-stir-fry-cover-photo-1-of-1.jpg'),
+(4, 'https://thewholecook.com/wp-content/uploads/2024/04/Lemon-Herb-Marinated-Grilled-Chicken-1-5.jpg'),
+(5, 'https://bellyfull.net/wp-content/uploads/2021/02/Chicken-Alfredo-blog-3.jpg'),
+(6, 'https://www.dinneratthezoo.com/wp-content/uploads/2020/12/grilled-chicken-salad-4.jpg'),
+(7, 'https://www.cookingclassy.com/wp-content/uploads/2018/03/roasted-tomato-soup-4.jpg'),
+(8, 'https://cdn.apartmenttherapy.info/image/upload/f_auto,q_auto:eco,c_fill,g_auto,w_1500,ar_3:2/k%2FPhoto%2FRecipes%2F2023-12-chicken-noodle-soup%2Fchicken-noodle-soup-509'),
+(9, 'https://www.livinglou.com/wp-content/uploads/2020/04/mediterranean-lentil-soup-500x500.jpg'),
+(10, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ3KpcuVOzgwiO51VdO6oOJ1KfDT4dA5g1RdA&s'),
+(11, 'https://oliviaadriance.com/wp-content/uploads/2023/07/Final_3_Crispy_Baked_Beef_Tacos_grain-free-dairy-free.jpg'),
+(12, 'https://www.allrecipes.com/thmb/7N-Xq1XMMJw8G0KJv2e0ETUYB2I=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/228823-quick-beef-stir-fry-DDMFS-4x3-1f79b031d3134f02ac27d79e967dfef5.jpg'),
+(13, 'https://thatovenfeelin.com/wp-content/uploads/2024/08/Slow-Cooker-Root-Beer-BBQ-Pork-Ribs-1.png'),
+(14, 'https://www.jocooks.com/wp-content/uploads/2019/04/pork-schnitzel-1.jpg'),
+(15, 'https://www.thechunkychef.com/wp-content/uploads/2019/01/Garlic-Ginger-Pork-Stir-Fry-feat-440x500.jpg'),
+(16, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwICLqF0vheuroW2QQzGaXMW0JrpneHjva1g&s'),
+(17, 'https://www.kitchensanctuary.com/wp-content/uploads/2019/10/Kung-Pao-Chicken-square-FS-39-new.jpg'),
+(18, 'https://www.everydayeasyeats.com/wp-content/uploads/2016/06/Chinese-Fried-Rice-1.jpg'),
+(19, 'https://thecommunalfeast.com/wp-content/uploads/2021/09/2A94FB4E-8797-4BBA-9192-478DB91729F0-scaled.jpeg'),
+(20, 'https://www.savorynothings.com/wp-content/uploads/2021/04/chicken-quesadillas-image-sq-2.jpg'),
+(21, 'https://www.allrecipes.com/thmb/rD35kPryGMBrSrpKYNxRAqXhk0o=/0x512/filters:no_upscale():max_bytes(150000):strip_icc()/AR-JF-27072-Mexican-Rice-ddmfs-3x4-8381afe28779449da506c99ef0e3b617.jpg'),
+(22, 'https://hips.hearstapps.com/hmg-prod/images/greek-salad-index-642f292397bbf.jpg?crop=0.888888888888889xw:1xh;center,top&resize=1200:*'),
+(23, 'https://www.indianhealthyrecipes.com/wp-content/uploads/2022/01/falafel-recipe.jpg'),
+(24, 'https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2FPhoto%2FRecipes%2F2024-08-hummus%2Fhummus-165');
 
 -- Insert sample users
 INSERT INTO users (username, password_hash, email) VALUES 
