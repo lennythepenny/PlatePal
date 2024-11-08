@@ -1,5 +1,6 @@
 <?php include('header.php'); ?>
-<main>      
+<main>
+<h3>Log In</h3>      
     <form action="../controller/account_controller.php" method="post">
         <input type="text" name="username" placeholder="Username" required>
         <input type="password" name="password" placeholder="Password" required>
