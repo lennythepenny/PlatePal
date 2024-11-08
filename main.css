@@ -1,15 +1,18 @@
 /* Colors used */
-:root{
+:root {
     --green: #6e994d;
     --orange: #e17e06;
-    --yellow: #f2e074; 
+    --yellow: #f2e074;
     --olive: #d0d59d;
     --tan: #f7ecd0;
 }
+
 /* Basic styling for Plate Pal */
 body {
     font-family: Arial, sans-serif;
+    margin: 0; /* Remove default body margin */
 }
+
 header, footer {
     background-color: var(--tan);
     padding: 1em;
@@ -21,9 +24,10 @@ h3 {
 }
 
 main {
-    padding: 2em;
+    padding: 1em; /* Adjust padding as needed to reduce spacing */
     background-color: var(--tan);
 }
+
 form input, form button {
     margin: 0.5em 0;
 }
@@ -33,7 +37,7 @@ nav {
     padding: 10px;
     border-radius: 5px;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 0; /* Remove bottom margin to eliminate extra space */
 }
 
 nav a {
@@ -57,7 +61,7 @@ input[type="text"], input[type="password"] {
     width: 200px;
     padding: 10px;
     border: 2px solid var(--olive);
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
     outline: none;
     margin: 2px;
 }
@@ -68,7 +72,7 @@ button[type="submit"] {
     padding: 10px 20px;
     color: white;
     cursor: pointer;
-    border-radius: 5px 5px 5px 5px;
+    border-radius: 5px;
     font-weight: bold;
     margin: 2px;
 }

@@ -11,5 +11,18 @@
         <h1>Plate Pal</h1>
         <h2>Find your favorite recipe!</h2>
     </header>
+        <!-- Dynamic Navigation Based on Login Status -->
+        <nav>
+        <a href="../controller/index.php">Home</a> | <!-- Redirect to the home controller -->
+        <?php if (isset($isLoggedIn) && $isLoggedIn): ?>
+            <!-- If the user is logged in, show the account page link -->
+            <a href="../view/account_view.php">My Account</a> | 
+            <a href="../controller/logout.php">Logout</a> <!-- Add logout link -->
+        <?php else: ?>
+            <!-- If the user is not logged in, show login and sign-up links -->
+            <a href="../view/login_view.php">Login</a> | 
+            <a href="../view/register_view.php">Sign Up</a>
+        <?php endif; ?>
+    </nav>
 </body>
 </html>
