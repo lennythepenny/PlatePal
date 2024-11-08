@@ -73,6 +73,14 @@ CREATE TABLE user_saved_recipes (
     FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
 
+CREATE TABLE site_media (
+    media_id INT AUTO_INCREMENT PRIMARY KEY,
+    media_name VARCHAR(255) NOT NULL,
+    media_filename VARCHAR(255) NOT NULL,
+    media_type VARCHAR(50),  -- Optional: e.g., 'logo', 'banner', etc.
+    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 -- Insert sample categories
 INSERT INTO categories (name) VALUES
 ('Vegan'),
@@ -213,3 +221,6 @@ INSERT INTO images (recipe_id, image_filename) VALUES
 INSERT INTO users (username, password_hash, email) VALUES 
 ('user1', SHA2('password1', 256), 'user1@example.com'),
 ('user2', SHA2('password2', 256), 'user2@example.com');
+
+INSERT INTO site_media (media_name, media_filename, media_type)
+VALUES ('Plate Pal Logo', '/Applications/XAMPP/xamppfiles/htdocs/FINAL_CLASS_PROJECT/PlatePal\images\plate_pal_plate', 'logo');

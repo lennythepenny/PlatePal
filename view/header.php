@@ -7,8 +7,22 @@
     <link rel="stylesheet" href="../main.css">
 </head>
 <body>
-    <header>
-        <h1>Plate Pal</h1>
+<header>
+        <?php
+        // Database connection (adjust as necessary)
+        require_once '../model/database.php';
+        
+        // Fetch the logo image path from the site_media table
+        $query = "SELECT media_filename FROM site_media WHERE media_type = 'logo' LIMIT 1";
+        $result = $db->query($query);
+        $logo = $result->fetch();
+        
+        if ($logo) {
+            echo '<img src="' . htmlspecialchars($logo['media_filename']) . '" alt="Plate Pal Logo" class="logo">';
+        } else {
+            echo '<h1>Plate Pal</h1>'; // Fallback text if logo is not available
+        }
+        ?>
         <h2>Find your favorite recipe!</h2>
     </header>
         <!-- Dynamic Navigation Based on Login Status -->
