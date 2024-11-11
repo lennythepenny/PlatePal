@@ -11,14 +11,13 @@
         <?php
         // Database connection (adjust as necessary)
         require_once '../model/database.php';
+
+        // Define the local file path of the logo image
+        $logo_path = '../images/plate_pal_plate.png'; // Adjust the path based on where your logo is stored
         
-        // Fetch the logo image path from the site_media table
-        $query = "SELECT media_filename FROM site_media WHERE media_type = 'logo' LIMIT 1";
-        $result = $db->query($query);
-        $logo = $result->fetch();
-        
-        if ($logo) {
-            echo '<img src="' . htmlspecialchars($logo['media_filename']) . '" alt="Plate Pal Logo" class="logo">';
+        // Check if the logo file exists
+        if (file_exists($logo_path)) {
+            echo '<img src="' . htmlspecialchars($logo_path) . '" alt="Plate Pal Logo" class="logo">';
         } else {
             echo '<h1>Plate Pal</h1>'; // Fallback text if logo is not available
         }
