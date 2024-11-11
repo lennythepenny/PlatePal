@@ -28,6 +28,23 @@ main {
     background-color: var(--tan);
 }
 
+/* Center the recipe title, cooking time, and serving size */
+.recipe-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px; /* Adjust space below the title */
+}
+
+.recipe-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.recipe-info p {
+    font-size: 1.2em;
+}
+
+
 form input, form button {
     margin: 0.5em 0;
 }
@@ -85,4 +102,3 @@ button[type="submit"]:hover {
     width: 150px; 
     height: auto;
 }
-

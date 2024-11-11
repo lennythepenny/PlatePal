@@ -18,6 +18,15 @@ function getRecipeById($recipe_id) {
     $statement->execute();
     $recipe = $statement->fetch();
     $statement->closeCursor();
+
+    // Decode the nutrition_info JSON and handle missing data
+    $nutrition_info = json_decode($recipe['nutrition_info'], true);
+    $recipe['nutrition_info'] = [
+        'calories' => isset($nutrition_info['calories']) ? $nutrition_info['calories'] : 'N/A',
+        'protein' => isset($nutrition_info['protein']) ? $nutrition_info['protein'] : 'N/A',
+        'carbs' => isset($nutrition_info['carbs']) ? $nutrition_info['carbs'] : 'N/A',
+    ];
+
     return $recipe;
 }
 
@@ -39,6 +48,16 @@ function searchRecipes($term) {
     $statement->execute();
     $results = $statement->fetchAll();
     $statement->closeCursor();
+
+    // Process the results to extract nutrition info
+    foreach ($results as &$recipe) {
+        $nutrition_info = json_decode($recipe['nutrition_info'], true);
+        $recipe['nutrition_info'] = [
+            'calories' => isset($nutrition_info['calories']) ? $nutrition_info['calories'] : 'N/A',
+            'protein' => isset($nutrition_info['protein']) ? $nutrition_info['protein'] : 'N/A',
+            'carbs' => isset($nutrition_info['carbs']) ? $nutrition_info['carbs'] : 'N/A',
+        ];
+    }
 
     return $results;
 }

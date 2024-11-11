@@ -3,11 +3,26 @@
 <main>
     <!-- Recipe Details Section -->
     <section class="recipe-details">
-        <h2><?php echo htmlspecialchars($recipe['title']); ?></h2>
+        <h2 class="recipe-title"><?php echo htmlspecialchars($recipe['title']); ?></h2>
 
+        <!-- Display Recipe Image -->
+        <div class="recipe-image">
+            <?php
+                // Fetch the image URL from the database
+                $image_query = "SELECT image_filename FROM images WHERE recipe_id = " . $recipe['id'];
+                $image_result = mysqli_query($conn, $image_query);
+                $image = mysqli_fetch_assoc($image_result);
+                
+                if ($image) {
+                    echo '<img src="' . htmlspecialchars($image['image_filename']) . '" alt="' . htmlspecialchars($recipe['title']) . '" class="recipe-image-display">';
+                } else {
+                    echo '<p>No image available.</p>';
+                }
+            ?>
+        </div>
         <div class="recipe-info">
             <p><strong>Cooking Time:</strong> <?php echo htmlspecialchars($recipe['cooking_time']); ?> minutes</p>
-            <p><strong>Serving Size:</strong> 4 servings</p>
+            <p><strong>Serving Size:</strong> <?php echo htmlspecialchars($recipe['servings']); ?> servings</p>
         </div>
 
         <!-- Ingredients List -->
@@ -35,24 +50,17 @@
 
         <!-- Nutritional Details -->
         <h4>Nutritional Information (per serving):</h4>
-        <table>
-            <tr>
-                <th>Calories</th>
-                <td><?php echo htmlspecialchars($recipe['calories']); ?></td>
-            </tr>
-            <tr>
-                <th>Protein</th>
-                <td><?php echo htmlspecialchars($recipe['protein']); ?>g</td>
-            </tr>
-            <tr>
-                <th>Fat</th>
-                <td><?php echo htmlspecialchars($recipe['fat']); ?>g</td>
-            </tr>
-            <tr>
-                <th>Carbohydrates</th>
-                <td><?php echo htmlspecialchars($recipe['carbohydrates']); ?>g</td>
-            </tr>
-        </table>
+        <div class="nutrition-info">
+            <div class="nutrition-item">
+                <strong>Calories:</strong> <?php echo htmlspecialchars($recipe['nutrition_info']['calories']); ?> kcal
+            </div>
+            <div class="nutrition-item">
+                <strong>Protein:</strong> <?php echo htmlspecialchars($recipe['nutrition_info']['protein']); ?> g
+            </div>
+            <div class="nutrition-item">
+                <strong>Carbohydrates:</strong> <?php echo htmlspecialchars($recipe['nutrition_info']['carbs']); ?> g
+            </div>
+        </div>
     </section>
 </main>
 
