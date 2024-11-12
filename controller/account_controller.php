@@ -63,7 +63,13 @@ if (isset($_POST['register'])) {
 } else {
     include('../view/login_view.php'); // Default to the login view if no action is specified
 }
-
+// Logout functionality
+if (isset($_GET['action']) && $_GET['action'] === 'logout') {
+    session_unset(); // Remove all session variables
+    session_destroy(); // Destroy the session
+    header("Location: ../view/login_view.php"); // Redirect to login page
+    exit();
+}
 // Function to check if the username already exists
 function usernameExists($username) {
     global $db;
@@ -75,7 +81,6 @@ function usernameExists($username) {
     $statement->closeCursor();
     return $user !== false;
 }
-
 // Function to add the user to the database
 function addUser($username, $password_hash, $email) {
     global $db;

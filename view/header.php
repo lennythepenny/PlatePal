@@ -30,7 +30,7 @@
         <?php if (isset($isLoggedIn) && $isLoggedIn): ?>
             <!-- If the user is logged in, show the account page link -->
             <a href="../view/account_view.php">My Account</a> | 
-            <a href="../controller/logout.php">Logout</a> <!-- Add logout link -->
+            <a href="../controller/account_controller.php?action=logout">Logout</a> <!-- Add logout link -->
         <?php else: ?>
             <!-- If the user is not logged in, show login and sign-up links -->
             <a href="../view/login_view.php">Login</a> | 
