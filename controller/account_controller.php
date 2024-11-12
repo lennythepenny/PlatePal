@@ -32,6 +32,7 @@ if (isset($_POST['login'])) {
 if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $email = $_POST['email'];
 
     // Validate input
     if (empty($username) || empty($password)) {
@@ -51,7 +52,7 @@ if (isset($_POST['register'])) {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
     // Add user to the database
-    if (addUser($username, $hashed_password)) {
+    if (addUser($username, $hashed_password, $email)) {
         $_SESSION['username'] = $username;
         header("Location: ../view/account_view.php");
         exit(); // Make sure no code runs after the redirect
@@ -76,14 +77,22 @@ function usernameExists($username) {
 }
 
 // Function to add the user to the database
-function addUser($username, $password) {
+function addUser($username, $password_hash, $email) {
     global $db;
-    $query = 'INSERT INTO users (username, password) VALUES (:username, :password)';
+    // Modified query to include the 'email' column
+    $query = 'INSERT INTO users (username, password_hash, email) VALUES (:username, :password_hash, :email)';
     $statement = $db->prepare($query);
+    
+    // Bind the values for the query
     $statement->bindValue(':username', $username);
-    $statement->bindValue(':password_hash', $password);
+    $statement->bindValue(':password_hash', $password_hash);
+    $statement->bindValue(':email', $email);
+    
+    // Execute the query
     $success = $statement->execute();
     $statement->closeCursor();
+    
     return $success;
 }
+
 ?>
