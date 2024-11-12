@@ -198,7 +198,7 @@ INSERT INTO images (recipe_id, image_filename) VALUES
 (4, 'images/lemon_herb_chicken.jpg'),
 (5, 'images/chicken_alfredo.jpg'),
 (6, 'images/grilled_chicken_salad.jpg'),
-(7, 'images/tomato_soup.jpg'),
+(7, 'images/tomato_basil_soup.jpg'),
 (8, 'images/chicken_noodle_soup.webp'),
 (9, 'images/lentil_soup.jpg'),
 (10, 'images/beef_stew.jpg'),

@@ -28,23 +28,6 @@ main {
     background-color: var(--tan);
 }
 
-/* Center the recipe title, cooking time, and serving size */
-.recipe-title {
-    text-align: center;
-    font-size: 2em;
-    margin-bottom: 10px; /* Adjust space below the title */
-}
-
-.recipe-info {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.recipe-info p {
-    font-size: 1.2em;
-}
-
-
 form input, form button {
     margin: 0.5em 0;
 }
@@ -102,3 +85,59 @@ button[type="submit"]:hover {
     width: 150px; 
     height: auto;
 }
+
+/* Center the recipe title, cooking time, and serving size */
+.recipe-title {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 10px; /* Adjust space below the title */
+}
+
+.recipe-info {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.recipe-info p {
+    font-size: 1.2em;
+}
+
+/* Centering content and giving a white box background */
+.recipe-box {
+    background-color: white;   /* White background */
+    padding: 20px;             /* Padding inside the box */
+    margin: 20px auto;         /* Centering the box */
+    width: 80%;                /* Set the width of the box */
+    max-width: 800px;          /* Limit the maximum width */
+    border-radius: 8px;        /* Optional: adds rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow for better contrast */
+}
+
+/* Styling for the Ingredients and Instructions lists */
+.recipe-box ul, .recipe-box ol {
+    list-style-position: inside; /* Ensures list items are properly aligned */
+    margin: 0;
+    padding: 0;
+}
+
+.recipe-box li {
+    margin-bottom: 8px;         /* Adds space between list items */
+    font-size: 16px;            /* Adjust font size */
+}
+
+/* Recipe Image */
+.recipe-image {
+    text-align: center; /* Centers the image */
+    margin: 20px 0;     /* Adds spacing around the image */
+}
+
+.recipe-img {
+    width: 200px;      /* Set width to 200px */
+    height: 200px;     /* Set height to 200px */
+    object-fit: cover; /* Ensures the image fills the box without distorting the aspect ratio */
+    border-radius: 8px; /* Optional: adds rounded corners */
+    max-width: 100%;    /* Ensures the image doesn't overflow its container */
+    max-height: 200px;  /* Limits the maximum height of the image */
+    margin: 0 auto;     /* Centers the image horizontally */
+}
+
