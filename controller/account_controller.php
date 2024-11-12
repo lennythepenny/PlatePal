@@ -81,7 +81,7 @@ function addUser($username, $password) {
     $query = 'INSERT INTO users (username, password) VALUES (:username, :password)';
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
-    $statement->bindValue(':password', $password);
+    $statement->bindValue(':password_hash', $password);
     $success = $statement->execute();
     $statement->closeCursor();
     return $success;
