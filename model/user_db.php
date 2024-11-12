@@ -1,4 +1,7 @@
 <?php
+// Include the database connection settings
+require_once 'database.php';  // Make sure this path is correct
+
 // Manages user-related data like login and saved recipes
 function login($username, $password) {
     global $db;
