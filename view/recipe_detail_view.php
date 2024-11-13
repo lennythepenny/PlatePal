@@ -1,9 +1,19 @@
-<?php include('header.php'); ?>
-
+<?php 
+session_start(); // Start the session to check login status
+include('header.php');
+?>
 <main>
 <!-- Recipe Details Section -->
 <section class="recipe-details">
         <h2 class="recipe-title"><?php echo htmlspecialchars($recipe['title']); ?></h2>
+        
+        <?php if (isset($_SESSION['username'])): ?>
+            <!-- Show Save Recipe Button only if the user is logged in -->
+            <form action="../controller/recipe_controller.php" method="POST">
+                <input type="hidden" name="recipe_id" value="<?php echo $recipe['recipe_id']; ?>">
+                <button type="submit" name="save_recipe">Save Recipe</button>
+            </form>
+        <?php endif; ?>
 
         <!-- Recipe Image -->
         <div class="recipe-image">
