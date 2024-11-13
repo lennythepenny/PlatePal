@@ -73,14 +73,6 @@ CREATE TABLE user_saved_recipes (
     FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id) ON DELETE CASCADE
 );
 
-CREATE TABLE site_media (
-    media_id INT AUTO_INCREMENT PRIMARY KEY,
-    media_name VARCHAR(255) NOT NULL,
-    media_filename VARCHAR(255) NOT NULL,
-    media_type VARCHAR(50),  -- Optional: e.g., 'logo', 'banner', etc.
-    upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
 -- Insert sample categories
 INSERT INTO categories (name) VALUES
 ('Vegan'),
@@ -107,7 +99,7 @@ INSERT INTO recipes (title, instructions, cooking_time, servings, nutrition_info
 ('Beef Tacos', 'SautÃ© beef in a pan, once the beef is almost halfway done cooking add in taco seasoning, serve with tortillas and toppings', 20, 4, '{"calories": 250, "protein": 20, "carbs": 20}', 4),
 ('Beef Stir-fry', 'Stir-fry beef with veggies in soy sauce, Once beef & veggies are cooked through serve on bed of rice', 25, 3, '{"calories": 300, "protein": 25, "carbs": 15}', 4),
 ('BBQ Pork Ribs', 'Prep pork ribs with mixture of BBQ sauce and grill rubs let marinate for 15 min minimum, Preheat the grill/smoker to 225 degrees, Put onto grill/smoker and let cook until they reach an internal temp of 200 degrees then once taken off the grill let the ribs rest for 15 min and enjoy', 60, 4, '{"calories": 500, "protein": 35, "carbs": 20}', 5),
-('Pork Schnitzel', 'Use a mallet to thin the prok cutlets into 1/4" cutlets, Prepare breading mixtures and use them to bread the pork cutlets, Add breaded cutlets to hot frying pan, once fully cooked through serve right away with lemon or ranch', 45, 4, '{"calories": 400, "protein": 35, "carbs": 30}', 5),
+('Pork Schnitzel', 'Use a mallet to thin the pork cutlets into 1/4" cutlets, Prepare breading mixtures and use them to bread the pork cutlets, Add breaded cutlets to hot frying pan, once fully cooked through serve right away with lemon or ranch', 45, 4, '{"calories": 400, "protein": 35, "carbs": 30}', 5),
 ('Pork Stir-fry', 'Stir-fry pork with veggies in soy sauce, Once pork & veggies are cooked through serve on bed of rice', 25, 4, '{"calories": 350, "protein": 30, "carbs": 25}', 5),
 ('Sweet and Sour Chicken', 'Cut chicken into small 1 inch chunks, add chicken cubes into a bowl and add spices (salt, peper, garlic, and onion powder) to the bowl then mix until the chicken is evenly covered, create a batter out of flour, corn starch, and baking soda, batter the chicken before adding to the preheated fyring pan, after chicken has been fried add the sweet n sour sauce and mix until chicken is evenly coated and serve on bed of rice', 25, 3, '{"calories": 400, "protein": 25, "carbs": 50}', 6),
 ('Kung Pao Chicken', 'Marinate chicken in soy sauce, rice vinegar, hoisin sauce, and cornstarch for 10-15 minutes. Heat oil in a pan over medium heat. Stir-fry chicken until cooked through, then set aside, In the same pan, add garlic, ginger, and chilies, stir-frying until fragrant, Add bell pepper, green onions, and peanuts. Stir-fry for a few minutes, Return chicken to the pan, toss everything together, and season as needed, Serve hot with rice', 30, 3, '{"calories": 350, "protein": 30, "carbs": 20}', 6),
