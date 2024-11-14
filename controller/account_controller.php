@@ -4,29 +4,23 @@ require_once('../model/user_db.php');
 session_start();
 
 // Handle login functionality
-if (isset($_POST['login'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    // Check if username and password are not empty
-    if (!empty($username) && !empty($password)) {
-        $user = login($username, $password);
-        if ($user) {
-            // Store user details in session (e.g., user_id or username)
-            $_SESSION['user_id'] = $user['id'];  // Assuming there's an 'id' field in your user table
-            $_SESSION['username'] = $user['username'];
-            header("Location: ../view/account_view.php");
-            exit(); // Make sure no code runs after the redirect
-        } else {
-            $error = "Invalid login. Please try again.";
-            include('../view/login_view.php');
-        }
-    } else {
-        $error = "Username and password are required.";
-        include('../view/login_view.php');
-    }
-} 
+    $user = login($username, $password);
 
+    if ($user) {
+        // If login is successful, set session variables
+        $_SESSION['user_id'] = $user['user_id'];
+        $_SESSION['username'] = $user['username'];
+
+        header('Location: ../view/account_view.php'); // Redirect to the account page
+        exit();
+    } else {
+        echo "Invalid login credentials";
+    }
+}
 // Handle registration functionality
 if (isset($_POST['register'])) {
     $username = $_POST['username'];

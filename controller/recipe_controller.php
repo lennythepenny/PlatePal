@@ -2,45 +2,37 @@
 // Handles recipe-related actions like searching, navigating to recipe details, and saving recipes
 require_once('../model/recipe_db.php');
 require_once('../model/user_db.php'); // For user-related functions, if necessary
-
-// Check if the user is logged in
-session_start();
+// Start the session to check for login status
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 // Handle saved recipes display
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
     $saved_recipes = getSavedRecipes($user_id); // Fetch saved recipes for the logged-in user
 } else {
-    $saved_recipes = []; // Empty array if the user is not logged in
+    //$saved_recipes = []; // Empty array if the user is not logged in
+    echo "You must be logged in to view saved recipes.";
 }
 
-// Handle saving a recipe to the user's saved list if POST data exists
-if (isset($_POST['save_recipe'])) {
-    // Check if the user is logged in
-    if (isset($_SESSION['user_id'])) {
-        $user_id = $_SESSION['user_id'];
-        $recipe_id = $_POST['recipe_id'];
+$action = filter_input(INPUT_POST, 'action');
+if ($action == 'save_recipe') {
+    // Get user_id and recipe_id from the form data
+    $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
+    $recipe_id = filter_input(INPUT_POST, 'recipe_id', FILTER_VALIDATE_INT);
 
-        // Debugging output (Optional, you can remove this later)
-        echo "Debug: Recipe ID is " . htmlspecialchars($recipe_id) . "<br>";
-        echo "Debug: User ID is " . htmlspecialchars($user_id) . "<br>";
-
-        // Check if the recipe is already saved
-        if (!isRecipeSaved($user_id, $recipe_id)) {
-            saveRecipe($user_id, $recipe_id);
-            echo "Debug: Recipe saved successfully!<br>";
-        } else {
-            echo "Debug: This recipe is already saved.<br>";
-        }
-
-        // Redirect to the account page after saving
-        header('Location: ../view/account_view.php');
-        exit();
-    } else {
-        // If not logged in, redirect to login page or show an error message
-        echo "You must be logged in to save a recipe. <a href='../view/login_view.php'>Login here</a>";
+    // Check if both user_id and recipe_id are valid
+    if ($user_id && $recipe_id) {
+        // Call the function to save the recipe
+        addRecipeToUser($user_id, $recipe_id); // Assuming this function is in user_db.php
     }
+
+    // Redirect to the account page after saving
+    header("Location: ../view/account_view.php");
+    exit(); // Ensure no further code is executed
 }
+
 
 // Handle recipe display (view recipe details)
 if (isset($_GET['recipe_id'])) {

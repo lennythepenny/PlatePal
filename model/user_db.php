@@ -6,7 +6,7 @@ require_once 'database.php';  // Make sure this path is correct
 function login($username, $password) {
     global $db;
     // Query to get the user by username
-    $query = 'SELECT * FROM users WHERE username = :username';
+    $query = 'SELECT user_id, username, password_hash FROM users WHERE username = :username';
     $statement = $db->prepare($query);
     $statement->bindValue(':username', $username);
     $statement->execute();
@@ -15,7 +15,7 @@ function login($username, $password) {
 
     // Check if user exists and verify the password
     if ($user && password_verify($password, $user['password_hash'])) {
-        return $user;
+        return $user;  // Return user data if login is successful
     } else {
         return false; // Invalid login
     }
@@ -35,5 +35,4 @@ function getSavedRecipes($userId) {
     
     return $savedRecipes;
 }
-
 ?>
