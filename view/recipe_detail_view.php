@@ -9,8 +9,10 @@ include('header.php');
         <?php if (isset($_SESSION['username'])): ?>
             <!-- Show Save Recipe Button only if the user is logged in -->
             <form action="../controller/recipe_controller.php" method="POST">
-                <input type="hidden" name="recipe_id" value="<?php echo $recipe['recipe_id']; ?>">
-                <button type="submit" name="save_recipe">Save Recipe</button>
+                <input type="hidden" name="action" value="save_recipe">
+                <input type="hidden" name="recipe_id" value="<?= $recipe['recipe_id']; ?>">
+                <input type="hidden" name="user_id" value="<?= $_SESSION['user_id']; ?>">
+                <button type="submit">Save Recipe</button>
             </form>
         <?php endif; ?>
 

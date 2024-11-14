@@ -15,26 +15,31 @@ if (isset($_SESSION['user_id'])) {
 }
 
 // Handle saving a recipe to the user's saved list if POST data exists
-if (isset($_POST['save_recipe']) && isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $recipe_id = $_POST['recipe_id'];
+if (isset($_POST['save_recipe'])) {
+    // Check if the user is logged in
+    if (isset($_SESSION['user_id'])) {
+        $user_id = $_SESSION['user_id'];
+        $recipe_id = $_POST['recipe_id'];
 
-    // Debugging output
-    echo "Debug: Recipe ID is " . htmlspecialchars($recipe_id) . "<br>";
-    echo "Debug: User ID is " . htmlspecialchars($user_id) . "<br>";
+        // Debugging output (Optional, you can remove this later)
+        echo "Debug: Recipe ID is " . htmlspecialchars($recipe_id) . "<br>";
+        echo "Debug: User ID is " . htmlspecialchars($user_id) . "<br>";
 
-    // Check if the recipe is already saved
-    if (!isRecipeSaved($user_id, $recipe_id)) {
-        saveRecipe($user_id, $recipe_id);
-        echo "Debug: Recipe saved successfully!<br>";
+        // Check if the recipe is already saved
+        if (!isRecipeSaved($user_id, $recipe_id)) {
+            saveRecipe($user_id, $recipe_id);
+            echo "Debug: Recipe saved successfully!<br>";
+        } else {
+            echo "Debug: This recipe is already saved.<br>";
+        }
+
+        // Redirect to the account page after saving
+        header('Location: ../view/account_view.php');
+        exit();
     } else {
-        echo "Debug: This recipe is already saved.<br>";
+        // If not logged in, redirect to login page or show an error message
+        echo "You must be logged in to save a recipe. <a href='../view/login_view.php'>Login here</a>";
     }
-
-    // Redirect to the account page or recipe page after saving
-    // This needs to happen after the recipe is saved, not before
-    header('Location: ../view/account_view.php');
-    exit();
 }
 
 // Handle recipe display (view recipe details)
@@ -47,6 +52,7 @@ if (isset($_GET['recipe_id'])) {
     include('../view/index_view.php');
 }
 
+// Function to save the recipe to the user's saved list
 function saveRecipe($user_id, $recipe_id) {
     global $db;
     try {
