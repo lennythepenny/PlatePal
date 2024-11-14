@@ -24,8 +24,8 @@ if ($action == 'save_recipe') {
 
     // Check if both user_id and recipe_id are valid
     if ($user_id && $recipe_id) {
-        // Call the function to save the recipe
-        addRecipeToUser($user_id, $recipe_id); // Assuming this function is in user_db.php
+        // Call the saveRecipe function to save the recipe
+        saveRecipe($user_id, $recipe_id);
     }
 
     // Redirect to the account page after saving
