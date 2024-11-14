@@ -208,4 +208,3 @@ INSERT INTO images (recipe_id, image_filename) VALUES
 (22, 'images/greek_salad.jpg'),
 (23, 'images/falafel.jpg'),
 (24, 'images/hummus.jpg');
-
