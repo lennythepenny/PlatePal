@@ -25,6 +25,11 @@ if (isset($saved_recipes)) {  // Make sure saved_recipes is set by the controlle
         <?php foreach ($saved_recipes as $recipe): ?>
             <div class="saved-recipe">
                 <h3><?php echo htmlspecialchars($recipe['title']); ?></h3>
+                <!-- Add a button to save the recipe -->
+                <form method="POST" action="../controller/account_controller.php">
+                    <input type="hidden" name="recipe_id" value="<?php echo $recipe['id']; ?>">
+                    <button type="submit" name="save_recipe">Save Recipe</button>
+                </form>
             </div>
         <?php endforeach; ?>
     <?php else: ?>

@@ -1,5 +1,4 @@
 <?php 
-session_start(); // Start the session to check login status
 include('header.php');
 ?>
 <main>

@@ -1,7 +1,7 @@
 <?php
 // Handles recipe-related actions like searching, navigating to recipe details, and saving recipes
 require_once('../model/recipe_db.php');
-require_once('../model/user_db.php'); // For user-related functions, if necessary
+require_once('../model/user_db.php'); 
 
 // Check if the user is logged in
 session_start();
@@ -40,26 +40,5 @@ if (isset($_POST['save_recipe']) && isset($_SESSION['user_id'])) {
     // Optionally, you could redirect the user to their account page or show a message on the recipe detail page
     header('Location: ../view/account_view.php');
     exit();
-}
-function saveRecipe($user_id, $recipe_id) {
-    global $db;
-    $query = 'INSERT INTO user_saved_recipes (user_id, recipe_id) VALUES (:user_id, :recipe_id)';
-    $statement = $db->prepare($query);
-    $statement->bindValue(':user_id', $user_id);
-    $statement->bindValue(':recipe_id', $recipe_id);
-    $statement->execute();
-    $statement->closeCursor();
-}
-// Function to check if the recipe is already saved
-function isRecipeSaved($user_id, $recipe_id) {
-    global $db;
-    $query = 'SELECT * FROM user_saved_recipes WHERE user_id = :user_id AND recipe_id = :recipe_id';
-    $statement = $db->prepare($query);
-    $statement->bindValue(':user_id', $user_id);
-    $statement->bindValue(':recipe_id', $recipe_id);
-    $statement->execute();
-    $result = $statement->fetch();
-    $statement->closeCursor();
-    return $result !== false;
 }
 ?>

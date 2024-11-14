@@ -3,6 +3,7 @@
 require_once('../model/user_db.php');
 session_start();
 
+// Handle login functionality
 if (isset($_POST['login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -15,6 +16,11 @@ if (isset($_POST['login'])) {
             $_SESSION['user_id'] = $user['id'];  // Assuming there's an 'id' field in your user table
             $_SESSION['username'] = $user['username'];
 
+            // Fetch saved recipes after successful login
+            if (isset($_SESSION['user_id'])) {
+                $saved_recipes = getSavedRecipes($_SESSION['user_id']);
+            }
+            
             // Redirect to the account page
             header("Location: ../view/account_view.php");
             exit(); // Make sure no code runs after the redirect
@@ -28,7 +34,7 @@ if (isset($_POST['login'])) {
     }
 } 
 
-// Handle registration logic
+// Handle registration functionality
 if (isset($_POST['register'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -63,13 +69,37 @@ if (isset($_POST['register'])) {
 } else {
     include('../view/login_view.php'); // Default to the login view if no action is specified
 }
-// Logout functionality
+
+// Handle logout functionality
 if (isset($_GET['action']) && $_GET['action'] === 'logout') {
     session_unset(); // Remove all session variables
     session_destroy(); // Destroy the session
     header("Location: ../view/login_view.php"); // Redirect to login page
     exit();
 }
+
+// Handle save recipe functionality
+if (isset($_POST['save_recipe'])) {
+    $userId = $_SESSION['user_id'];  // Get the user ID from the session
+    $recipeId = $_POST['recipe_id']; // The ID of the recipe to save
+
+    // Check if the recipe is already saved
+    if (!isRecipeSaved($userId, $recipeId)) {
+        // Save the recipe if not already saved
+        if (saveRecipe($userId, $recipeId)) {
+            $message = "Recipe saved successfully!";
+        } else {
+            $message = "Error saving the recipe.";
+        }
+    } else {
+        $message = "This recipe is already saved.";
+    }
+
+    // Redirect or include the appropriate view (e.g., account_view.php)
+    header("Location: ../view/account_view.php");
+    exit();
+}
+
 // Function to check if the username already exists
 function usernameExists($username) {
     global $db;
@@ -81,6 +111,7 @@ function usernameExists($username) {
     $statement->closeCursor();
     return $user !== false;
 }
+
 // Function to add the user to the database
 function addUser($username, $password_hash, $email) {
     global $db;

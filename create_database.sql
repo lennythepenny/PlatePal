@@ -47,11 +47,11 @@ CREATE TABLE images (
     upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id)
 );
--- Step 5: Users Table
+-- Step 6: Users Table
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
-    password_hash CHAR(64) NOT NULL, -- for storing hashed passwords
+    password_hash CHAR(64) NOT NULL, 
     email VARCHAR(255) UNIQUE NOT NULL
 );
 
@@ -209,7 +209,3 @@ INSERT INTO images (recipe_id, image_filename) VALUES
 (23, 'images/falafel.jpg'),
 (24, 'images/hummus.jpg');
 
--- Insert sample users
-INSERT INTO users (username, password_hash, email) VALUES 
-('user1', SHA2('password1', 256), 'user1@example.com'),
-('user2', SHA2('password2', 256), 'user2@example.com');
