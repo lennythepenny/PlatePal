@@ -15,13 +15,6 @@ if (isset($_POST['login'])) {
             // Store user details in session (e.g., user_id or username)
             $_SESSION['user_id'] = $user['id'];  // Assuming there's an 'id' field in your user table
             $_SESSION['username'] = $user['username'];
-
-            // Fetch saved recipes after successful login
-            if (isset($_SESSION['user_id'])) {
-                $saved_recipes = getSavedRecipes($_SESSION['user_id']);
-            }
-            
-            // Redirect to the account page
             header("Location: ../view/account_view.php");
             exit(); // Make sure no code runs after the redirect
         } else {

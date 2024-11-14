@@ -20,24 +20,12 @@ function login($username, $password) {
         return false; // Invalid login
     }
 }
-// Function to save a recipe to the user's saved recipes list
-function saveRecipe($userId, $recipeId) {
-    global $db;
-    $query = 'INSERT INTO user_saved_recipes (user_id, recipe_id) VALUES (:user_id, :recipe_id)';
-    $statement = $db->prepare($query);
-    $statement->bindValue(':user_id', $userId);
-    $statement->bindValue(':recipe_id', $recipeId);
-    $success = $statement->execute();
-    $statement->closeCursor();
-    
-    return $success;
-}
 
 // Function to get all saved recipes for a user
 function getSavedRecipes($userId) {
     global $db;
     $query = 'SELECT * FROM recipes 
-              JOIN user_saved_recipes ON recipes.id = user_saved_recipes.recipe_id 
+              JOIN user_saved_recipes ON recipes.recipe_id = user_saved_recipes.recipe_id 
               WHERE user_saved_recipes.user_id = :user_id';
     $statement = $db->prepare($query);
     $statement->bindValue(':user_id', $userId);
@@ -46,20 +34,6 @@ function getSavedRecipes($userId) {
     $statement->closeCursor();
     
     return $savedRecipes;
-}
-
-// Function to check if a recipe is already saved by the user
-function isRecipeSaved($userId, $recipeId) {
-    global $db;
-    $query = 'SELECT * FROM user_saved_recipes WHERE user_id = :user_id AND recipe_id = :recipe_id';
-    $statement = $db->prepare($query);
-    $statement->bindValue(':user_id', $userId);
-    $statement->bindValue(':recipe_id', $recipeId);
-    $statement->execute();
-    $savedRecipe = $statement->fetch();
-    $statement->closeCursor();
-    
-    return $savedRecipe !== false;
 }
 
 ?>

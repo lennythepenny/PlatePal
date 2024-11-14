@@ -14,8 +14,14 @@ if (!isset($_SESSION['username'])) {
 
 $isLoggedIn = true; // Set to true if the user is logged in
 
-// Fetch saved recipes for the logged-in user
-if (isset($saved_recipes)) {  // Make sure saved_recipes is set by the controller
+// Fetch saved recipes for the logged-in user if they are not already set
+if (!isset($saved_recipes)) {
+    require_once('../model/user_db.php');  // Or wherever getSavedRecipes() is defined
+    $saved_recipes = getSavedRecipes($_SESSION['user_id']);
+}
+
+// Display saved recipes for the logged-in user
+if (isset($saved_recipes) && is_array($saved_recipes)) {
 ?>
 <main>
     <h2>Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?></h2>
@@ -25,11 +31,6 @@ if (isset($saved_recipes)) {  // Make sure saved_recipes is set by the controlle
         <?php foreach ($saved_recipes as $recipe): ?>
             <div class="saved-recipe">
                 <h3><?php echo htmlspecialchars($recipe['title']); ?></h3>
-                <!-- Add a button to save the recipe -->
-                <form method="POST" action="../controller/account_controller.php">
-                    <input type="hidden" name="recipe_id" value="<?php echo $recipe['id']; ?>">
-                    <button type="submit" name="save_recipe">Save Recipe</button>
-                </form>
             </div>
         <?php endforeach; ?>
     <?php else: ?>

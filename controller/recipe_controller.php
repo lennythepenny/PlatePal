@@ -1,10 +1,41 @@
 <?php
 // Handles recipe-related actions like searching, navigating to recipe details, and saving recipes
 require_once('../model/recipe_db.php');
-require_once('../model/user_db.php'); 
+require_once('../model/user_db.php'); // For user-related functions, if necessary
 
 // Check if the user is logged in
 session_start();
+
+// Handle saved recipes display
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $saved_recipes = getSavedRecipes($user_id); // Fetch saved recipes for the logged-in user
+} else {
+    $saved_recipes = []; // Empty array if the user is not logged in
+}
+
+// Handle saving a recipe to the user's saved list if POST data exists
+if (isset($_POST['save_recipe']) && isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $recipe_id = $_POST['recipe_id'];
+
+    // Debugging output
+    echo "Debug: Recipe ID is " . htmlspecialchars($recipe_id) . "<br>";
+    echo "Debug: User ID is " . htmlspecialchars($user_id) . "<br>";
+
+    // Check if the recipe is already saved
+    if (!isRecipeSaved($user_id, $recipe_id)) {
+        saveRecipe($user_id, $recipe_id);
+        echo "Debug: Recipe saved successfully!<br>";
+    } else {
+        echo "Debug: This recipe is already saved.<br>";
+    }
+
+    // Redirect to the account page or recipe page after saving
+    // This needs to happen after the recipe is saved, not before
+    header('Location: ../view/account_view.php');
+    exit();
+}
 
 // Handle recipe display (view recipe details)
 if (isset($_GET['recipe_id'])) {
@@ -16,29 +47,31 @@ if (isset($_GET['recipe_id'])) {
     include('../view/index_view.php');
 }
 
-// Handle saved recipes display
-if (isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $saved_recipes = getSavedRecipes($user_id); // Fetch saved recipes for the logged-in user
-} else {
-    $saved_recipes = []; // Empty array if the user is not logged in
+function saveRecipe($user_id, $recipe_id) {
+    global $db;
+    try {
+        $query = 'INSERT INTO user_saved_recipes (user_id, recipe_id) VALUES (:user_id, :recipe_id)';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':user_id', $user_id);
+        $statement->bindValue(':recipe_id', $recipe_id);
+        $statement->execute();
+        $statement->closeCursor();
+        echo "Debug: Recipe saved successfully!";
+    } catch (PDOException $e) {
+        echo "Debug: Error saving recipe - " . $e->getMessage();
+    }
 }
 
-// Handle saving a recipe to the user's saved list
-if (isset($_POST['save_recipe']) && isset($_SESSION['user_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $recipe_id = $_POST['recipe_id']; // Recipe ID from the form or AJAX request
-
-    // Check if the recipe is already saved
-    if (!isRecipeSaved($user_id, $recipe_id)) {
-        saveRecipe($user_id, $recipe_id); // Save the recipe for the user
-        $message = "Recipe saved successfully!";
-    } else {
-        $message = "This recipe is already saved.";
-    }
-
-    // Optionally, you could redirect the user to their account page or show a message on the recipe detail page
-    header('Location: ../view/account_view.php');
-    exit();
+// Function to check if the recipe is already saved
+function isRecipeSaved($user_id, $recipe_id) {
+    global $db;
+    $query = 'SELECT * FROM user_saved_recipes WHERE user_id = :user_id AND recipe_id = :recipe_id';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':user_id', $user_id);
+    $statement->bindValue(':recipe_id', $recipe_id);
+    $statement->execute();
+    $result = $statement->fetch();
+    $statement->closeCursor();
+    return $result !== false;
 }
 ?>
