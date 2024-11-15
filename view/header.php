@@ -37,5 +37,9 @@
                 <a href="../view/register_view.php">Sign Up</a>
             <?php endif; ?>
         </nav>
+<!-- REMOVE IF IT LOOKS UGLY LOL-->
+        <section class="footer-banner">
+            <img src="../images/food_footer_image.png" alt="Banner Image" />
+        </section>
 </body>
 </html>

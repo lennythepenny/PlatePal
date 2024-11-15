@@ -13,10 +13,16 @@ body {
     margin: 0; /* Remove default body margin */
 }
 
+/* Basic styling for Plate Pal */
 header, footer {
     background-color: var(--tan);
     padding: 1em;
     color: var(--green);
+    display: flex;             /* Add flexbox for centering */
+    flex-direction: column;    /* Stack elements vertically */
+    align-items: center;       /* Center items horizontally */
+    justify-content: center;   /* Center items vertically (optional, if needed) */
+    text-align: center;        /* Center text content */
 }
 
 h3 {
@@ -139,5 +145,22 @@ button[type="submit"]:hover {
     max-width: 100%;    /* Ensures the image doesn't overflow its container */
     max-height: 200px;  /* Limits the maximum height of the image */
     margin: 0 auto;     /* Centers the image horizontally */
+}
+/* Footer Banner Container */
+.footer-banner {
+    width: 100%; /* Make the container span the full width */
+    height: 50px; /* Set a fixed height for the banner */
+    overflow: hidden; /* Hide any overflowing image parts */
+    display: flex; /* Flexbox to center the image */
+    justify-content: center; /* Center the image horizontally */
+    align-items: center; /* Center the image vertically */
+}
+
+/* Image inside the container */
+.footer-banner img {
+    width: 100%; /* Make the image fill the container width */
+    height: 100%; /* Make the image fill the container height */
+    object-fit: cover; /* Ensure the image covers the container area without distortion */
+    max-width: none; /* Override any default max-width set on images */
 }
 
