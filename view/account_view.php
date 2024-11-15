@@ -30,7 +30,12 @@ if (isset($saved_recipes) && is_array($saved_recipes)) {
     <?php if (!empty($saved_recipes)): ?>
         <?php foreach ($saved_recipes as $recipe): ?>
             <div class="saved-recipe">
-                <h3><?php echo htmlspecialchars($recipe['title']); ?></h3>
+                <!-- Make the recipe title a clickable link, directing to recipe_controller.php with the recipe_id -->
+                <h3>
+                    <a href="../controller/recipe_controller.php?recipe_id=<?php echo htmlspecialchars($recipe['recipe_id']); ?>">
+                        <?php echo htmlspecialchars($recipe['title']); ?>
+                    </a>
+                </h3>
             </div>
         <?php endforeach; ?>
     <?php else: ?>
