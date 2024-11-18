@@ -13,7 +13,6 @@ if (isset($_SESSION['user_id'])) {
     $saved_recipes = getSavedRecipes($user_id); // Fetch saved recipes for the logged-in user
 } else {
     //$saved_recipes = []; // Empty array if the user is not logged in
-    echo "You must be logged in to view saved recipes.";
 }
 
 $action = filter_input(INPUT_POST, 'action');
