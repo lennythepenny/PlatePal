@@ -21,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Invalid login credentials";
     }
 }
+
 // Handle registration functionality
 if (isset($_POST['register'])) {
     $username = $_POST['username'];
@@ -47,6 +48,7 @@ if (isset($_POST['register'])) {
     // Add user to the database
     if (addUser($username, $hashed_password, $email)) {
         $_SESSION['username'] = $username;
+        $_SESSION['user_id'] = getUserIdByUsername($username);
         header("Location: ../view/account_view.php");
         exit(); // Make sure no code runs after the redirect
     } else {
@@ -117,5 +119,15 @@ function addUser($username, $password_hash, $email) {
     
     return $success;
 }
-
+// Function to get the user_id by username
+function getUserIdByUsername($username) {
+    global $db;
+    $query = 'SELECT user_id FROM users WHERE username = :username';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':username', $username);
+    $statement->execute();
+    $user = $statement->fetch();
+    $statement->closeCursor();
+    return $user['user_id'] ?? null; // Return the user_id, or null if not found
+}
 ?>
