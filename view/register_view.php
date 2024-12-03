@@ -1,5 +1,6 @@
 <?php include('header.php'); ?>
 <main>
+    <!-- Register View -->
     <h3>Register</h3>
     <form action="../controller/account_controller.php" method="post">
     <input type="text" name="username" placeholder="Username">

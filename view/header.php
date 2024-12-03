@@ -9,17 +9,18 @@
 <body>
 <header>
         <?php
-        // Database connection (adjust as necessary)
+        //needed DB connection
         require_once '../model/database.php';
 
-        // Define the local file path of the logo image
-        $logo_path = '../images/plate_pal_plate.png'; // Adjust the path based on where your logo is stored
+        //local file path for logo image
+        $logo_path = '../images/plate_pal_plate.png'; 
         
-        // Check if the logo file exists
+        //make sure logo file exists
         if (file_exists($logo_path)) {
             echo '<img src="' . htmlspecialchars($logo_path) . '" alt="Plate Pal Logo" class="logo">';
         } else {
-            echo '<h1>Plate Pal</h1>'; // Fallback text if logo is not available
+            //default if logo not available
+            echo '<h1>Plate Pal</h1>';
         }
         ?>
         <h2>Find your favorite recipe!</h2>
@@ -37,7 +38,7 @@
                 <a href="../view/register_view.php">Sign Up</a>
             <?php endif; ?>
         </nav>
-<!-- REMOVE IF IT LOOKS UGLY LOL-->
+<!-- REMOVE BANNER IF IT LOOKS UGLY LOL-->
         <section class="footer-banner">
             <img src="../images/food_footer_image.png" alt="Banner Image" />
         </section>

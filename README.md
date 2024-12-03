@@ -55,9 +55,3 @@ Holds the website’s HTML templates and styles.
 3. Place the project files in a server directory (e.g., `htdocs` if using XAMPP).
 4. Access the website by navigating to `localhost/PlatePal/index.php`.
 
-## License
-This project is created for educational purposes and is intended to demonstrate web development principles using PHP and MySQL.
-
----
-
-This README provides an overview of the Plate Pal project and describes the purpose of each file in the directory structure.

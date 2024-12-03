@@ -1,10 +1,10 @@
 <?php
-// Start session management
+//start session
  session_start();
 
-// Check if the user is logged in
+//check if user logged in
 $isLoggedIn = isset($_SESSION['username']);
 
-// Pass the login status to the view and render it
+//pass login status to main view
 require_once('../view/index_view.php');
 ?>

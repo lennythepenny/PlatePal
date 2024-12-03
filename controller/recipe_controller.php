@@ -1,49 +1,48 @@
 <?php
-// Handles recipe-related actions like searching, navigating to recipe details, and saving recipes
+//recipe-related actions: searching, navigating to recipe details, and saving recipes
 require_once('../model/recipe_db.php');
-require_once('../model/user_db.php'); // For user-related functions, if necessary
-// Start the session to check for login status
+require_once('../model/user_db.php');
+//start session, check login status
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Handle saved recipes display
+//saved recipes display for loggin in user
 if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
-    $saved_recipes = getSavedRecipes($user_id); // Fetch saved recipes for the logged-in user
+    $saved_recipes = getSavedRecipes($user_id);
 } else {
-    //$saved_recipes = []; // Empty array if the user is not logged in
+    //$saved_recipes = []; //user not logged in use empty array (change this for future)
 }
 
 $action = filter_input(INPUT_POST, 'action');
 if ($action == 'save_recipe') {
-    // Get user_id and recipe_id from the form data
+    //user id and recipe id from form
     $user_id = filter_input(INPUT_POST, 'user_id', FILTER_VALIDATE_INT);
     $recipe_id = filter_input(INPUT_POST, 'recipe_id', FILTER_VALIDATE_INT);
 
-    // Check if both user_id and recipe_id are valid
+    //make sure both id's are valid
     if ($user_id && $recipe_id) {
-        // Call the saveRecipe function to save the recipe
+        //if valid save the recipe
         saveRecipe($user_id, $recipe_id);
     }
 
-    // Redirect to the account page after saving
+    //account page after saving
     header("Location: ../view/account_view.php");
-    exit(); // Ensure no further code is executed
+    exit();
 }
 
-
-// Handle recipe display (view recipe details)
+//recipe display (recipe view details)
 if (isset($_GET['recipe_id'])) {
     $recipe_id = $_GET['recipe_id'];
-    $recipe = getRecipeById($recipe_id); // Fetch the recipe by ID
-    include('../view/recipe_detail_view.php'); // Pass the recipe details to the view
+    $recipe = getRecipeById($recipe_id);
+    include('../view/recipe_detail_view.php');
 } else {
-    // If no recipe is requested, default to the index page
+    //no recipe requested go to index
     include('../view/index_view.php');
 }
 
-// Function to save the recipe to the user's saved list
+//save recipe function to user's recipe list
 function saveRecipe($user_id, $recipe_id) {
     global $db;
     try {
@@ -59,7 +58,7 @@ function saveRecipe($user_id, $recipe_id) {
     }
 }
 
-// Function to check if the recipe is already saved
+//check if recipe already saved
 function isRecipeSaved($user_id, $recipe_id) {
     global $db;
     $query = 'SELECT * FROM user_saved_recipes WHERE user_id = :user_id AND recipe_id = :recipe_id';

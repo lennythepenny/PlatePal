@@ -1,4 +1,4 @@
-/* Colors used */
+/* colors used */
 :root {
     --green: #6e994d;
     --orange: #e17e06;
@@ -7,22 +7,22 @@
     --tan: #f7ecd0;
 }
 
-/* Basic styling for Plate Pal */
+/* basic styling for Plate Pal */
 body {
     font-family: Arial, sans-serif;
-    margin: 0; /* Remove default body margin */
+    margin: 0;
 }
 
-/* Basic styling for Plate Pal */
+/* basic styling for Plate Pal */
 header, footer {
     background-color: var(--tan);
     padding: 1em;
     color: var(--green);
-    display: flex;             /* Add flexbox for centering */
-    flex-direction: column;    /* Stack elements vertically */
-    align-items: center;       /* Center items horizontally */
-    justify-content: center;   /* Center items vertically (optional, if needed) */
-    text-align: center;        /* Center text content */
+    display: flex;             /* center the page */
+    flex-direction: column;    /* stack elements vertically */
+    align-items: center;       /* center items horizontally */
+    justify-content: center;   /* center items vertically */
+    text-align: center;        /* center text content */
 }
 
 h3 {
@@ -30,7 +30,7 @@ h3 {
 }
 
 main {
-    padding: 1em; /* Adjust padding as needed to reduce spacing */
+    padding: 1em; 
     background-color: var(--tan);
 }
 
@@ -43,7 +43,7 @@ nav {
     padding: 10px;
     border-radius: 5px;
     text-align: center;
-    margin: 0; /* Remove bottom margin to eliminate extra space */
+    margin: 0; 
 }
 
 nav a {
@@ -92,11 +92,11 @@ button[type="submit"]:hover {
     height: auto;
 }
 
-/* Center the recipe title, cooking time, and serving size */
+/* center recipe title, cooking time, and serving size */
 .recipe-title {
     text-align: center;
     font-size: 2em;
-    margin-bottom: 10px; /* Adjust space below the title */
+    margin-bottom: 10px; /*space under title*/
 }
 
 .recipe-info {
@@ -108,59 +108,58 @@ button[type="submit"]:hover {
     font-size: 1.2em;
 }
 
-/* Centering content and giving a white box background */
+/* center and give white box for recipe details */
 .recipe-box {
-    background-color: white;   /* White background */
-    padding: 20px;             /* Padding inside the box */
-    margin: 20px auto;         /* Centering the box */
-    width: 80%;                /* Set the width of the box */
-    max-width: 800px;          /* Limit the maximum width */
-    border-radius: 8px;        /* Optional: adds rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: adds a shadow for better contrast */
+    background-color: white;   
+    padding: 20px;             
+    margin: 20px auto;         
+    width: 80%;                
+    max-width: 800px;          
+    border-radius: 8px;        
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* shadow for better contrast */
 }
 
-/* Styling for the Ingredients and Instructions lists */
+/* styling for ingredients list */
 .recipe-box ul, .recipe-box ol {
-    list-style-position: inside; /* Ensures list items are properly aligned */
+    list-style-position: inside; 
     margin: 0;
     padding: 0;
 }
 
 .recipe-box li {
-    margin-bottom: 8px;         /* Adds space between list items */
-    font-size: 16px;            /* Adjust font size */
+    margin-bottom: 8px;         
+    font-size: 16px;            
 }
 
-/* Recipe Image */
 .recipe-image {
-    text-align: center; /* Centers the image */
-    margin: 20px 0;     /* Adds spacing around the image */
+    text-align: center; 
+    margin: 20px 0;     
 }
 
 .recipe-img {
-    width: 200px;      /* Set width to 200px */
-    height: 200px;     /* Set height to 200px */
-    object-fit: cover; /* Ensures the image fills the box without distorting the aspect ratio */
-    border-radius: 8px; /* Optional: adds rounded corners */
-    max-width: 100%;    /* Ensures the image doesn't overflow its container */
-    max-height: 200px;  /* Limits the maximum height of the image */
-    margin: 0 auto;     /* Centers the image horizontally */
+    width: 200px;      
+    height: 200px;     
+    object-fit: cover; 
+    border-radius: 8px; 
+    max-width: 100%;    
+    max-height: 200px;  
+    margin: 0 auto;     
 }
-/* Footer Banner Container */
+/*make sure footer banner correctly fits the whole page*/
 .footer-banner {
-    width: 100%; /* Make the container span the full width */
-    height: 50px; /* Set a fixed height for the banner */
-    overflow: hidden; /* Hide any overflowing image parts */
-    display: flex; /* Flexbox to center the image */
-    justify-content: center; /* Center the image horizontally */
-    align-items: center; /* Center the image vertically */
+    width: 100%; 
+    height: 50px; 
+    overflow: hidden; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
 }
 
-/* Image inside the container */
+/* image inside the footer container */
 .footer-banner img {
-    width: 100%; /* Make the image fill the container width */
-    height: 100%; /* Make the image fill the container height */
-    object-fit: cover; /* Ensure the image covers the container area without distortion */
-    max-width: none; /* Override any default max-width set on images */
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; 
+    max-width: none; 
 }
 

@@ -1,8 +1,7 @@
 <?php
-// Handles recipe data operations
 require_once('database.php');
 
-// Fetch a single recipe by ID, including ingredients
+//get single recipe based on recipe id
 function getRecipeById($recipe_id) {
     global $db;
     $query = 'SELECT r.recipe_id, r.title, r.instructions, r.cooking_time, r.servings, r.nutrition_info, 
@@ -19,7 +18,7 @@ function getRecipeById($recipe_id) {
     $recipe = $statement->fetch();
     $statement->closeCursor();
 
-    // Decode the nutrition_info JSON and handle missing data
+    //getting nutrition info from JSON
     $nutrition_info = json_decode($recipe['nutrition_info'], true);
     $recipe['nutrition_info'] = [
         'calories' => isset($nutrition_info['calories']) ? $nutrition_info['calories'] : 'N/A',
@@ -31,12 +30,13 @@ function getRecipeById($recipe_id) {
 }
 
 
-// Search for recipes by title or ingredients
+//search recipes from title or ingredient
 function searchRecipes($term) {
     global $db;
-    $search_term = '%' . $term . '%'; // For partial match
+    //partial matches
+    $search_term = '%' . $term . '%';
 
-    // Corrected SQL query to search by ingredients and use DISTINCT to avorecipe_id duplicates
+    //search by ingredients and use DISTINCT to avoid recipe_id duplicates
     $query = 'SELECT DISTINCT r.recipe_id, r.title, r.instructions, r.cooking_time, r.servings, r.nutrition_info
               FROM recipes r
               JOIN recipe_ingredients ri ON r.recipe_id = ri.recipe_id
@@ -49,7 +49,7 @@ function searchRecipes($term) {
     $results = $statement->fetchAll();
     $statement->closeCursor();
 
-    // Process the results to extract nutrition info
+    //process results and extract nutrition info
     foreach ($results as &$recipe) {
         $nutrition_info = json_decode($recipe['nutrition_info'], true);
         $recipe['nutrition_info'] = [

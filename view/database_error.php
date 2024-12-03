@@ -1,4 +1,3 @@
-<!-- view/database_error.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>

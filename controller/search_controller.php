@@ -1,18 +1,17 @@
 <?php
-// Handles search queries by meal type or ingredient
-require_once('../model/recipe_db.php'); // corrected from search_db.php
+//search queries by meal type or ingredient
+require_once('../model/recipe_db.php');
 
 if (isset($_POST['search'])) {
-    // Sanitize the search term input
     $term = filter_input(INPUT_POST, 'search_term', FILTER_SANITIZE_STRING);
     
-    // Fetch search results from the model
+    //search results from model
     $results = searchRecipes($term);
     
-    // Pass results and term to the search results view
+    //results and search term passed to view
     include('../view/search_results_view.php');
 } else {
-    // Fallback if accessed without a search term
+    //accessed without search term
     include('../view/index_view.php');
 }
 ?>

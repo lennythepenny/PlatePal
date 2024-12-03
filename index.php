@@ -1,5 +1,5 @@
 <?php
-// Redirects to the main controller
+//redirects to main controller
 header("Location: controller/index.php");
 exit();
 ?>
